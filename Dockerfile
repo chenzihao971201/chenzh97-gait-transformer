@@ -1,5 +1,5 @@
 # ===== Base: CUDA runtime + cuDNN + Ubuntu =====
-FROM nvidia/cuda:12.1.1-cudnn9-runtime-ubuntu22.04
+FROM nvidia/cuda:12.1.1-runtime-ubuntu22.04
 
 ENV DEBIAN_FRONTEND=noninteractive \
     PYTHONDONTWRITEBYTECODE=1 \
