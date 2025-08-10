@@ -1,0 +1,25 @@
+# 大文件与训练产物
+data/
+runs/
+**/*.pth
+**/*.pt
+**/*.ckpt
+**/*.onnx
+**/*.zip
+
+# Python 缓存
+__pycache__/
+**/*.pyc
+**/*.pyo
+**/*.pyd
+*.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# VCS / 虚拟环境
+.git/
+.venv/
+.env
+
+# OS 杂项
+.DS_Store
+Thumbs.db
