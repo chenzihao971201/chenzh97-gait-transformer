@@ -1,0 +1,41 @@
+name: Build & Push Docker
+
+on:
+  workflow_dispatch:        # 手动触发
+  push:                     # 或推代码自动触发
+    branches: [ main ]
+    paths:
+      - Dockerfile
+      - requirements.txt
+      - '**/*.py'
+      - '.dockerignore'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build & Push (cu121 + latest)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          platforms: linux/amd64          # 云服务器大多是 x86_64
+          push: true
+          tags: |
+            chenzh97/gait-transformer:cu121
+            chenzh97/gait-transformer:latest
+          # 可选：开启构建缓存（加速二次构建）
+          cache-from: type=registry,ref=chenzh97/gait-transformer:buildcache
+          cache-to: type=registry,ref=chenzh97/gait-transformer:buildcache,mode=max
